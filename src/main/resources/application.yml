@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/bookstore?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+  redis:
+    host: 192.168.119.128
+  rabbitmq:
+    host: 192.168.119.128
+    username: guest
+    password: guest
+  elasticsearch:
+    jest:
+      uris: http://192.168.119.128:9200
+  devtools:
+    livereload:
+      enabled: true
+
+#thymeleaf静态访问的文件 的地方
+#spring.resources.static-locations=["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "classpath:/templates/"]
+
+
+
+
+#logging:
+#  level:
+#    cn.zjh.comform.dao: debug
+#debug: true
