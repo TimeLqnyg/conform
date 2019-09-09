@@ -27,32 +27,43 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * @param http
 	 * @throws Exception
 	 */
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-////		super.configure(http);
-//		http.authorizeRequests()
-//				.anyRequest().authenticated() //所以的http请求都要经过认证
-//				.and()
-//				.formLogin().and()
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+//		super.configure(http);
+		http
+                .authorizeRequests()
+				.antMatchers("/userLogin").permitAll()
+				.anyRequest().authenticated() //所以的http请求都要经过认证
+				.and()
+				.formLogin()
+				.loginPage("/userLogin")
+                //登录请求地址 即login页面表单action地址
+                .loginProcessingUrl("/login")
+//                .defaultSuccessUrl("/index")
+//                .failureUrl("/404")
+                .and()
+                .csrf().disable();
+//                .and()
 //				.httpBasic();
-//
-//	}
+
+	}
 
 	/**
 	 *
 	 */
 
-//	@Override
-//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-////		super.configure(auth);
-//		/**
-//		 * .role("USER")和.authorities("ROLE_USER")一样
-//		 */
-//		//在内存中维护用户存储
-//		auth.inMemoryAuthentication()
-//				.passwordEncoder(new BCryptPasswordEncoder())
-//				.withUser("user").password(new BCryptPasswordEncoder().encode("password"))
-//				.roles("USER").and()
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//		super.configure(auth);
+		/**
+		 * .role("USER")和.authorities("ROLE_USER")一样
+		 */
+		//在内存中维护用户存储
+		auth.inMemoryAuthentication()
+				.passwordEncoder(new BCryptPasswordEncoder())
+				.withUser("user").password(new BCryptPasswordEncoder().encode("123456"))
+				.roles("USER");
+//              .and()
 //				.withUser("admin").password(new BCryptPasswordEncoder().encode("password"))
 //				.roles("USER","ADMIN");
 //
@@ -72,7 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //				.groupSearchFilter("member={0}");
 
 
-//	}
+	}
 
 
 }
