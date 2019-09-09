@@ -1,6 +1,8 @@
 package cn.zjh.conform.config;
 
+import cn.zjh.conform.service.sercurity.MyUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,6 +24,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	DataSource dataSource;
 
+
+//	@Bean
+//	public MyUserDetailService myUserDetailService(){
+//		return new MyUserDetailService();
+//	}
+
+	@Autowired
+	MyUserDetailService myUserDetailService;
+
 	/**
 	 * 这个是没有用户的 所以没有人能登陆成功
 	 * @param http
@@ -32,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		super.configure(http);
 		http
                 .authorizeRequests()
+				.antMatchers("/404").permitAll()
 				.antMatchers("/userLogin").permitAll()
 				.anyRequest().authenticated() //所以的http请求都要经过认证
 				.and()
@@ -40,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //登录请求地址 即login页面表单action地址
                 .loginProcessingUrl("/login")
 //                .defaultSuccessUrl("/index")
-//                .failureUrl("/404")
+                .failureUrl("/404")
                 .and()
                 .csrf().disable();
 //                .and()
@@ -59,13 +71,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		 * .role("USER")和.authorities("ROLE_USER")一样
 		 */
 		//在内存中维护用户存储
-		auth.inMemoryAuthentication()
-				.passwordEncoder(new BCryptPasswordEncoder())
-				.withUser("user").password(new BCryptPasswordEncoder().encode("123456"))
-				.roles("USER");
+//		auth.inMemoryAuthentication()
+//				.passwordEncoder(new BCryptPasswordEncoder())
+//				.withUser("user").password(new BCryptPasswordEncoder().encode("123456"))
+//				.roles("USER");
 //              .and()
 //				.withUser("admin").password(new BCryptPasswordEncoder().encode("password"))
 //				.roles("USER","ADMIN");
+
+		auth.userDetailsService(myUserDetailService).passwordEncoder(new BCryptPasswordEncoder());
+
 //
 
 
