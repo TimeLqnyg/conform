@@ -1,5 +1,6 @@
 package cn.zjh.conform.config;
 
+import cn.zjh.conform.service.sercurity.MyAuthenticationSuccessHandler;
 import cn.zjh.conform.service.sercurity.MyUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,6 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	MyUserDetailService myUserDetailService;
 
+	@Autowired
+	MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
+
 	/**
 	 * 这个是没有用户的 所以没有人能登陆成功
 	 * @param http
@@ -51,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginPage("/userLogin")
                 //登录请求地址 即login页面表单action地址
                 .loginProcessingUrl("/login")
+				.successHandler(myAuthenticationSuccessHandler)
 //                .defaultSuccessUrl("/index")
                 .failureUrl("/404")
                 .and()
