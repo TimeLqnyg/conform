@@ -30,15 +30,15 @@ public class MyUserDetailService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		//UserDetails 封装用户数据的接口
+//		UserDetails 封装用户数据的接口
 //		User user=new User("user",new BCryptPasswordEncoder().encode("123456"),
 //				AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER,ROLE_ADMIN"));
 
 		User user=userMapper.findByUsername(username);
 
-		List<Permission> list=userMapper.findPermissionByUsername(username);
-
-		List<GrantedAuthority> grantedAuthorityList=new ArrayList<>();
+//		List<Permission> list=userMapper.findPermissionByUsername(username);
+//
+//		List<GrantedAuthority> grantedAuthorityList=new ArrayList<>();
 
 		return user;
 	}

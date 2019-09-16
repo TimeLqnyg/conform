@@ -1,8 +1,10 @@
 package cn.zjh.conform;
 
 import cn.zjh.conform.controller.TestController;
+import cn.zjh.conform.dao.UserMapper;
 import cn.zjh.conform.model.Article;
 import cn.zjh.conform.model.Book;
+import cn.zjh.conform.model.User;
 import cn.zjh.conform.service.TestService;
 import cn.zjh.conform.service.autoBean.AutoBeanService;
 import io.searchbox.client.JestClient;
@@ -15,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MockMvcBuilder;
@@ -119,6 +122,18 @@ public class ConformApplicationTests {
 	public void Test04(){
 		System.out.println("-----------------");
 		System.out.println(new BCryptPasswordEncoder().encode("123"));
+	}
+
+	@Autowired
+	private UserMapper userMapper;
+
+	@Test
+	public void testUpdatePassword(){
+		User user=new User();
+		user.setUsername("user");
+		PasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
+		user.setPassword(passwordEncoder.encode("123456") );
+		userMapper.updateUserPassword(user);
 	}
 }
 

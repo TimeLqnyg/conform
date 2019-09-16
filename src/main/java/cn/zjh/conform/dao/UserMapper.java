@@ -3,6 +3,7 @@ package cn.zjh.conform.dao;
 import cn.zjh.conform.model.Permission;
 import cn.zjh.conform.model.User;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,6 +13,9 @@ public interface UserMapper {
 
     @Select("select * from sys_user where username=#{username}")
     public User findByUsername(String username);
+
+    @Update("update sys_user set password=#{password} where username=#{username}")
+    void updateUserPassword(User user);
 
 
     //多对多不好做外键
