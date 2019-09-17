@@ -1,5 +1,7 @@
 package cn.zjh.conform.config;
 
+import cn.zjh.conform.service.sercurity.ImageCodeAuthenticationFilter;
+import cn.zjh.conform.service.sercurity.MyAuthenticationFailureHandler;
 import cn.zjh.conform.service.sercurity.MyAuthenticationSuccessHandler;
 import cn.zjh.conform.service.sercurity.MyUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.FormContentFilter;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.sql.DataSource;
 
@@ -38,8 +44,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
 
+	@Autowired
+	MyAuthenticationFailureHandler myAuthenticationFailureHandler;
+
+//	@Autowired
+//	ImageCodeAuthenticationFilter imageCodeAuthenticationFilter;
+
+	//https://docs.spring.io/spring-security/site/docs/5.2.0.RC1/reference/htmlsingle/#remember-me-overview
+	@Bean
+	public AbstractAuthenticationProcessingFilter imageCodeAuthenticationFilter(){
+//		ImageCodeAuthenticationFilter imageCodeAuthenticationFilter=new ImageCodeAuthenticationFilter();
+//		imageCodeAuthenticationFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
+		return null;
+	}
+
 	/**
-	 * 这个是没有用户的 所以没有人能登陆成功
+	 *
 	 * @param http
 	 * @throws Exception
 	 */
@@ -55,21 +75,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 				.formLogin()
 				.loginPage("/userLogin")
-                //登录请求地址 即login页面表单action地址
-                .loginProcessingUrl("/login")
+				//登录请求地址 即login页面表单action地址
+				.loginProcessingUrl("/login")
 				.successHandler(myAuthenticationSuccessHandler)
+				.failureHandler(myAuthenticationFailureHandler)
 //                .defaultSuccessUrl("/index")
-                .failureUrl("/404")
-                .and()
-                .csrf().disable();
+				.failureUrl("/404")
+				.and()
+				.httpBasic()
+				.and()
+				.rememberMe()
+				.and()
+				.logout().logoutSuccessUrl("/userLogin")//<a th:href="@{/logout}">Logout</a>
+				.and()
+				.addFilterAt(imageCodeAuthenticationFilter(),UsernamePasswordAuthenticationFilter.class)
+				.csrf().disable();//th:action 可以生成csrf域
 //                .and()
 //				.httpBasic();
+
+
 
 	}
 
 	/**
 	 *
 	 */
+
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
