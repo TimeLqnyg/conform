@@ -3,6 +3,7 @@ package cn.zjh.conform;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -26,6 +27,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 
 @SpringBootApplication
 @MapperScan("cn.zjh.conform.dao")
+@EntityScan("cn.zjh.conform.model")
 @EnableCaching
 @EnableAspectJAutoProxy
 //@EnableWebSecurity //启用Web安全性

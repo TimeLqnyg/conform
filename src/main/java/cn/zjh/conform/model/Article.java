@@ -1,9 +1,12 @@
 package cn.zjh.conform.model;
 
-import io.searchbox.annotations.JestId;
+//import io.searchbox.annotations.JestId;
+
+import javax.persistence.Entity;
+
+//@Entity
 
 public class Article {
-	@JestId
 	private Integer id;
 	private String author;
 	private String title;

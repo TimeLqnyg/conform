@@ -4,18 +4,37 @@ spring:
     username: root
     password: root
     url: jdbc:mysql://localhost:3306/bookstore?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-  redis:
-    host: 192.168.119.128
-  rabbitmq:
-    host: 192.168.119.128
-    username: guest
-    password: guest
-  elasticsearch:
-    jest:
-      uris: http://192.168.119.128:9200
+#  redis:
+#    host: 192.168.119.128
+#  rabbitmq:
+#    host: 192.168.119.128
+#    username: guest
+#    password: guest
+#  elasticsearch:
+#    jest:
+#      uris: http://192.168.119.128:9200
   devtools:
     livereload:
       enabled: true
+
+  jpa:
+#    database: MYSQL
+    show-sql: true
+    hibernate:
+#    create 启动时删数据库中的表，然后创建，退出时不删除数据表
+#    create-drop 启动时删数据库中的表，然后创建，退出时删除数据表 如果表不存在报错
+#    update 如果启动时表格式不一致则更新表，原有数据保留
+#    validate 项目启动表结构进行校验 如果不一致则报错
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss #mvc接收参数时对日期进行格式化
+
+  jackson:
+        date-format: yyyy-MM-dd HH:mm:ss #jackson对响应回去的日期参数进行格式化
+        time-zone: GMT+8
+
+
 
 
 #thymeleaf静态访问的文件 的地方

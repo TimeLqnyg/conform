@@ -51,12 +51,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //	ImageCodeAuthenticationFilter imageCodeAuthenticationFilter;
 
 	//https://docs.spring.io/spring-security/site/docs/5.2.0.RC1/reference/htmlsingle/#remember-me-overview
-	@Bean
-	public AbstractAuthenticationProcessingFilter imageCodeAuthenticationFilter(){
-//		ImageCodeAuthenticationFilter imageCodeAuthenticationFilter=new ImageCodeAuthenticationFilter();
-//		imageCodeAuthenticationFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
-		return null;
-	}
+//	@Bean
+//	public AbstractAuthenticationProcessingFilter imageCodeAuthenticationFilter(){
+////		ImageCodeAuthenticationFilter imageCodeAuthenticationFilter=new ImageCodeAuthenticationFilter();
+////		imageCodeAuthenticationFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
+//		return null;
+//	}
 
 	/**
 	 *
@@ -69,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
                 .authorizeRequests()
 				.antMatchers("/404").permitAll()
-				.antMatchers("/userLogin").permitAll()
+				.antMatchers("/userLogin","/logout").permitAll()
 				.antMatchers("/imgs/*").permitAll()
 				.anyRequest().authenticated() //所以的http请求都要经过认证
 				.and()
@@ -86,12 +86,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 				.rememberMe()
 				.and()
-				.logout().logoutSuccessUrl("/userLogin")//<a th:href="@{/logout}">Logout</a>
+				.logout().permitAll().invalidateHttpSession(true)
+				.logoutSuccessUrl("/userLogin").logoutUrl("/logout")//<a th:href="@{/logout}">Logout</a>
 				.and()
-				.addFilterAt(imageCodeAuthenticationFilter(),UsernamePasswordAuthenticationFilter.class)
-				.csrf().disable();//th:action 可以生成csrf域
+//				.addFilterAt(imageCodeAuthenticationFilter(),UsernamePasswordAuthenticationFilter.class)
+				.csrf().disable();//th:action 可以生成csrf域  添加CSRF将更新LogoutFilter以仅使用HTTP POST。
 //                .and()
 //				.httpBasic();
+				;
 
 
 

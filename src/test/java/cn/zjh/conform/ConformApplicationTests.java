@@ -1,14 +1,14 @@
 package cn.zjh.conform;
 
 import cn.zjh.conform.controller.TestController;
+import cn.zjh.conform.dao.AuthoritiesRepository;
 import cn.zjh.conform.dao.UserMapper;
 import cn.zjh.conform.model.Article;
+import cn.zjh.conform.model.Authorities;
 import cn.zjh.conform.model.Book;
 import cn.zjh.conform.model.User;
 import cn.zjh.conform.service.TestService;
 import cn.zjh.conform.service.autoBean.AutoBeanService;
-import io.searchbox.client.JestClient;
-import io.searchbox.core.Index;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
@@ -46,8 +47,8 @@ public class ConformApplicationTests {
 	@Autowired
 	private TestController testController;
 
-	@Autowired
-	JestClient jestClient;
+//	@Autowired
+//	JestClient jestClient;
 
 	@Test
 	public void contextLoads() {
@@ -100,23 +101,23 @@ public class ConformApplicationTests {
 		MockMvc mockMvc= MockMvcBuilders.standaloneSetup(testController).build();
 		mockMvc.perform(get("/test/aopTest"));
 	}
-
-	@Test
-	public void contextLoad(){
-		Article article=new Article();
-		article.setId(1);
-		article.setAuthor("zhangsan");
-		article.setTitle("好消息");
-		article.setContent("hello world");
-
-		//构建一个索引
-		Index index = new Index.Builder(article).index("zjh").type("news").build();
-		try {
-			jestClient.execute(index);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+//
+//	@Test
+//	public void contextLoad(){
+//		Article article=new Article();
+//		article.setId(1);
+//		article.setAuthor("zhangsan");
+//		article.setTitle("好消息");
+//		article.setContent("hello world");
+//
+//		//构建一个索引
+//		Index index = new Index.Builder(article).index("zjh").type("news").build();
+//		try {
+//			jestClient.execute(index);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	@Test
 	public void Test04(){
@@ -134,6 +135,17 @@ public class ConformApplicationTests {
 		PasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
 		user.setPassword(passwordEncoder.encode("123456") );
 		userMapper.updateUserPassword(user);
+	}
+
+	@Autowired
+	private AuthoritiesRepository authoritiesRepository;
+
+	@Test
+	public void testJPA(){
+
+		Integer list=authoritiesRepository.findByUserAndAuthority("zhangsan","ROLE_USER");
+//		list.forEach(e-> System.out.println(e.getUsername()));
+		System.out.println(list);
 	}
 }
 
