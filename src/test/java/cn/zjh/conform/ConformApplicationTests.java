@@ -143,7 +143,7 @@ public class ConformApplicationTests {
 	@Test
 	public void testJPA(){
 
-		Integer list=authoritiesRepository.findByUserAndAuthority("zhangsan","ROLE_USER");
+		Integer list=authoritiesRepository.findByUserAndAuthority("张三","ROLE_USER");
 //		list.forEach(e-> System.out.println(e.getUsername()));
 		System.out.println(list);
 	}
