@@ -101,6 +101,14 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
+        <!--分页-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>4.1.0</version>
+
+        </dependency>
+
         <!--springboot 默认使用springdata ElasticSearch默认进行操作-->
         <!--<dependency>-->
             <!--<groupId>org.springframework.boot</groupId>-->
