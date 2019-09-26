@@ -55,4 +55,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         super.configure(endpoints);
     }
+
+    public static void main(String[] args) {
+        System.out.println(new org.apache.tomcat.util.codec.binary.Base64().encodeAsString("my-client-1:12345678".getBytes()));
+        System.out.println(java.util.Base64.getEncoder().encodeToString("my-client-1:12345678".getBytes()));
+    }
 }
