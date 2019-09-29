@@ -26,12 +26,13 @@ public class TestController {
 	private AOPService aopService;
 
 	@RequestMapping("/queryById/{Id}")
+	@GetMapping
 	public Book queryByid(@PathVariable("Id") Integer Id){
 //		System.out.println("查询书本");
   		return testService.queryBookById(Id);
 	}
 
-	@RequestMapping("/getBookByName/{Name}")
+	@RequestMapping(value = "/getBookByName/{Name}",method ={RequestMethod.POST,RequestMethod.GET} )
 	public Book getBookByName(@PathVariable("Name") String Name){
 		return testService.getBookByName(Name);
 	}
@@ -76,5 +77,6 @@ public class TestController {
 	public String hello(){
 		return "index";
 	}
+
 
 }

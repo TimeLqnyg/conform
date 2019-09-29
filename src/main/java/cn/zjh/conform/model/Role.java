@@ -1,6 +1,6 @@
 package cn.zjh.conform.model;
 
-public class role {
+public class Role {
     private Integer id;
     private String roleName;
     private String roleDesc;

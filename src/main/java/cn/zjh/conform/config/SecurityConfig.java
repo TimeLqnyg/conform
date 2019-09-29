@@ -108,7 +108,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //		super.configure(auth);
 		/**
-		 * .role("USER")和.authorities("ROLE_USER")一样
+		 * .Role("USER")和.authorities("ROLE_USER")一样
 		 */
 		//在内存中维护用户存储
 //		auth.inMemoryAuthentication()
