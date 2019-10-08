@@ -57,6 +57,7 @@ public class MyRedisConfig  extends CachingConfigurerSupport {
 	}
 
 
+	//自定义 cache key 的生成方式
 	@Override
 	@Bean
 	public KeyGenerator keyGenerator() {
