@@ -129,13 +129,14 @@
             <version>3.0.2.RELEASE</version>
         </dependency>
 
-        <!--jsp渲染引擎-->
+        <!--jsp渲染引擎  Jsper模块: 负责jsp页面的解析、jsp属性的验证，同时也负责
+        将jsp页面动态转换为java代码并编译成class文件-->
         <!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jasper -->
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-jasper</artifactId>
-            <scope>provided</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.tomcat</groupId>-->
+<!--            <artifactId>tomcat-jasper</artifactId>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
 
         <!--JSTL-->
 
