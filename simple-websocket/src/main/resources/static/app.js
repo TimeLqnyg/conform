@@ -13,6 +13,7 @@ function setConnected(connected) {
 }
 
 function connect() {
+    //sockjs client
     var socket = new SockJS('/zjhWs');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
