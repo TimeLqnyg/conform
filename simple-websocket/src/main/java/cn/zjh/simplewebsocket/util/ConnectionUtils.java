@@ -11,7 +11,8 @@ import com.rabbitmq.client.ConnectionFactory;
 public class ConnectionUtils {
     public static ConnectionFactory getConnection() throws Exception{
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("192.168.204.250");
+//        factory.setHost("192.168.204.250");
+        factory.setHost("192.168.136.250");
         factory.setPort(5672);
         factory.setVirtualHost("/vhost_zjh");
         factory.setUsername("user_zjh");
