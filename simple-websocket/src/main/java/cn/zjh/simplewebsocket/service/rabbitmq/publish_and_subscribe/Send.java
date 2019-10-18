@@ -1,4 +1,4 @@
-package cn.zjh.simplewebsocket.service.publish_and_subscribe;
+package cn.zjh.simplewebsocket.service.rabbitmq.publish_and_subscribe;
 
 import cn.zjh.simplewebsocket.util.ConnectionUtils;
 import com.rabbitmq.client.BuiltinExchangeType;
