@@ -1,4 +1,4 @@
-package cn.zjh.simplewebsocket.service.rpc;
+package cn.zjh.simplewebsocket.service.rpc.server;
 
 /**
  * @author: create by zjh
