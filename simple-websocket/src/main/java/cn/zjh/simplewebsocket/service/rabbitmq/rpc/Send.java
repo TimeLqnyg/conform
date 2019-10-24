@@ -1,12 +1,9 @@
 package cn.zjh.simplewebsocket.service.rabbitmq.rpc;
 
 import cn.zjh.simplewebsocket.util.ConnectionUtils;
-import com.rabbitmq.client.AMQP.BasicProperties;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.DeliverCallback;
+import com.rabbitmq.client.*;
 
+import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -28,8 +25,7 @@ public class Send {
              Channel channel = connection.createChannel();) {
             //回复队列  放返回的信息  消息发送方在后续消费这个队列
             String callbackQueueName = channel.queueDeclare().getQueue();
-            BasicProperties props = new BasicProperties
-                    .Builder()
+            AMQP.BasicProperties props = new AMQP.BasicProperties.Builder()
                     .replyTo(callbackQueueName)
                     .build();
 
@@ -50,6 +46,18 @@ public class Send {
             return result;
 
 
+        }
+    }
+
+    public void Procude() throws Exception {
+        ConnectionFactory factory = ConnectionUtils.getConnection();
+
+        try (Connection connection = factory.newConnection();
+             Channel channel = connection.createChannel();) {
+
+            AMQP.BasicProperties properties=new AMQP.BasicProperties.Builder()
+                   // .headers(HashMap)  /这里有一些附加信息 有些是定义好的 自定义的写在headers中 headers是map
+                    .build();
         }
     }
 }
