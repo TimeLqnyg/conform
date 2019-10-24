@@ -26,6 +26,7 @@ public class Recv2 {
         String queueName=channel.queueDeclare().getQueue();
         System.out.println(queueName);
         channel.queueBind(queueName,EXCHANGE_NAME,"");
+        //服务质量保证
         channel.basicQos(1);
 
         DeliverCallback deliverCallback = (customerTag, delivery) -> {

@@ -1,10 +1,7 @@
 package cn.zjh.simplewebsocket.service.rabbitmq.returnListener;
 
 import cn.zjh.simplewebsocket.util.ConnectionUtils;
-import com.rabbitmq.client.BuiltinExchangeType;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.*;
 
 /**
  * @author: create by zjh
@@ -27,8 +24,28 @@ public class Consumer {
         channel.queueDeclare(queueName,true,false,false,null);
         channel.queueBind(queueName,exchangeName,routingKey);
 
-        channel.basicConsume(queueName,true,(consumerTag, message) -> {
-            System.out.println(message.getBody());
+		/**
+		 * 限流
+		 *	autoAct=false
+		 *
+		 *  false表示是consumer级别的
+		 */
+
+		channel.basicQos(0,1,false);
+
+
+		/**
+		 * Delivery 类
+		 * private final Envelope _envelope;
+		 * private final AMQP.BasicProperties _properties;
+		 * private final byte[] _body;
+		 */
+
+
+
+        channel.basicConsume(queueName,false,(consumerTag, message) -> {
+            System.out.println(new String(message.getBody()));
+            channel.basicAck(message.getEnvelope().getDeliveryTag(),false);
         },(consumerTag -> {}));
     }
 }
