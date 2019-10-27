@@ -39,7 +39,7 @@ public class Producer {
                 System.out.println("------Ack-------");
             }
 
-            //失败
+            //失败 没有确认
             @Override
             public void handleNack(long deliveryTag, boolean multiple) throws IOException {
                 System.out.println("------No Ack-------");
