@@ -22,7 +22,9 @@ public class Send {
             channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
             String routingKey="hello";
             String message="hello routing";
-            channel.basicPublish(EXCHANGE_NAME,routingKey, MessageProperties.PERSISTENT_TEXT_PLAIN,message.getBytes());
+            for (int i=0;i<5;i++){
+                channel.basicPublish(EXCHANGE_NAME,routingKey, MessageProperties.PERSISTENT_TEXT_PLAIN,message.getBytes());
+            }
         }
     }
 }

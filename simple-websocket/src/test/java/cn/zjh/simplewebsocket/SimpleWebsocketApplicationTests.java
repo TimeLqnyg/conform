@@ -53,10 +53,10 @@ public class SimpleWebsocketApplicationTests {
         /**
          * String destination, DestinationType destinationType, String exchange, String routingKey,Map<String, Object> arguments
          */
-        String routingKey="test.routingkey";
+        String routingKey="test.routingKey";
         //第一种
-        rabbitAdmin.declareBinding(new Binding("test.topic.queue",Binding.DestinationType.QUEUE,
-                "test.topic",routingKey,new HashMap<>()));
+//        rabbitAdmin.declareBinding(new Binding("test.topic.queue",Binding.DestinationType.QUEUE,
+//                "test.topic",routingKey,new HashMap<>()));
 
         //第二种
         rabbitAdmin.declareBinding(BindingBuilder
@@ -71,10 +71,18 @@ public class SimpleWebsocketApplicationTests {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
+    @Test
     public void testSendMessage(){
 		MessageProperties messageProperties=new MessageProperties();
+		messageProperties.setContentType("text/plain");
 		messageProperties.getHeaders().put("desc","信息描述");
 		messageProperties.getHeaders().put("type","自定义消息类型");
+		Message message = new Message("Hello RabbitMQ Message".getBytes(), messageProperties);
 
+        rabbitTemplate.convertAndSend("test.topic","test.routingKey",message,changeMessage -> {
+            System.out.println("---------额外信息---------");
+            changeMessage.getMessageProperties().getHeaders().put("desc","额外信息描述");
+            return changeMessage;
+        });
 	}
 }
