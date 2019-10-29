@@ -39,7 +39,7 @@ public class Producer {
             }
         });
 
-        //发送  第三个参数mandatory returnListener会监听到不路由的消息 进行处理 否则会直接删除
+        //发送  第三个参数mandatory returnListener监听到不路由的消息 进行处理 否则会直接删除会
         for(int i=0;i<5;i++){
             channel.basicPublish(exchangeName,routingKey,true,null,meesage.getBytes());
         }

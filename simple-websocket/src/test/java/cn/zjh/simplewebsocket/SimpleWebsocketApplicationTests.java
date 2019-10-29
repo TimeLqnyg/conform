@@ -1,7 +1,10 @@
 package cn.zjh.simplewebsocket;
 
+import cn.zjh.simplewebsocket.model.Packaged;
 import cn.zjh.simplewebsocket.service.rabbitmq.simple.HelloRecv;
 import cn.zjh.simplewebsocket.service.rabbitmq.simple.HelloSend;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.amqp.core.*;
@@ -85,4 +88,27 @@ public class SimpleWebsocketApplicationTests {
             return changeMessage;
         });
 	}
+
+	@Test
+	public void testSendJson() throws JsonProcessingException {
+        Packaged packaged=new Packaged();
+        packaged.setId(1);
+        packaged.setName("package");
+        packaged.setDescription("描述");
+        ObjectMapper objectMapper=new ObjectMapper();
+        String json =objectMapper.writeValueAsString(packaged);
+
+        MessageProperties messageProperties=new MessageProperties();
+        messageProperties.setContentType("application/json");
+        Message message=new Message(json.getBytes(),messageProperties);
+
+        rabbitTemplate.send("test.topic","test.json",message);
+
+    }
+
+    @Test
+    public void test(){
+        String username = rabbitTemplate.getConnectionFactory().getUsername();
+        System.out.println(username);
+    }
 }

@@ -1,7 +1,19 @@
 server:
   port: 8081
+#
+#rabbitmq:
+#  host: 192.168.136.128
+#  port: 5729
 
-rabbitmq:
-  host: 192.168.136.128
-  port: 5729
-
+//这里面这个配置不生效了
+spring:
+  rabbitmq:
+    host: 192.168.204.250
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    publisher-confirms: true
+    publisher-returns: true
+    template:
+      mandatory: true
