@@ -1,5 +1,7 @@
 package cn.zjh.simplewebsocket;
 
+import cn.zjh.simplewebsocket.dao.AuthorityRepository;
+import cn.zjh.simplewebsocket.model.Authority;
 import cn.zjh.simplewebsocket.model.Packaged;
 import cn.zjh.simplewebsocket.service.rabbitmq.simple.HelloRecv;
 import cn.zjh.simplewebsocket.service.rabbitmq.simple.HelloSend;
@@ -110,5 +112,17 @@ public class SimpleWebsocketApplicationTests {
     public void test(){
         String username = rabbitTemplate.getConnectionFactory().getUsername();
         System.out.println(username);
+    }
+
+    @Autowired
+    private AuthorityRepository authorityRepository;
+
+    @Test
+    public void addTest(){
+        Authority authority=new Authority();
+        authority.setUsername("张三");
+        authority.setAuthority("A");
+        Authority authority1=authorityRepository.save(authority);
+        System.out.println(authority1.getId());
     }
 }

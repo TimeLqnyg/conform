@@ -39,10 +39,10 @@ public class Producer {
 			}
 		});
 
-		//发送  第三个参数mandatory returnListener会监听到不路由的消息 进行处理 否则会直接删除
+
 		AMQP.BasicProperties properties = new AMQP.BasicProperties.Builder()
 				.expiration("10000").build();
-
+		//发送  第三个参数mandatory returnListener会监听到不路由的消息 进行处理 否则会直接删除
 		channel.basicPublish(exchangeName, routingKey, true, properties, meesage.getBytes());
 //        channel.basicPublish(exchangeName,routingErrorKey,true,null,meesage.getBytes());
 

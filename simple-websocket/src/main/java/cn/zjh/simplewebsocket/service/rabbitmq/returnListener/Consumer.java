@@ -46,6 +46,8 @@ public class Consumer {
         channel.basicConsume(queueName,false,(consumerTag, message) -> {
             System.out.println(new String(message.getBody()));
             channel.basicAck(message.getEnvelope().getDeliveryTag(),false);
+            //最后一个参数 requeue 重回队列
+//            channel.basicNack(message.getEnvelope().getDeliveryTag(),false,true);
         },(consumerTag -> {}));
     }
 }

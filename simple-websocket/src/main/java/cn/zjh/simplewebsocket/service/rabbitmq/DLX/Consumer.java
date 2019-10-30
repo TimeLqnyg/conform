@@ -27,7 +27,7 @@ public class Consumer {
         String queueName="test_dlx_queue";
 
         //这个是正常的队列
-        //exchange,queue都是有arguments的 救赎属性
+        //exchange,queue都是有arguments的 自身属性
         channel.exchangeDeclare(exchangeName, BuiltinExchangeType.TOPIC,true,false,null);
 
 		Map<String,Object> arguments=new HashMap<>();
