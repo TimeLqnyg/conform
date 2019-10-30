@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * WebSocket
+ * WebSocket controller 测试
  * @author: create by zjh
  * @version: v1.0
  * @description: cn.zjh.simplewebsocket.controller
