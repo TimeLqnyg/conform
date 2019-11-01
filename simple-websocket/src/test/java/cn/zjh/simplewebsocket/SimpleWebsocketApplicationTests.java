@@ -17,6 +17,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -119,10 +121,24 @@ public class SimpleWebsocketApplicationTests {
 
     @Test
     public void addTest(){
+        //这样子的话 重复插入会报异常
         Authority authority=new Authority();
         authority.setUsername("张三");
         authority.setAuthority("A");
+        authority.setUserId("321ed5ec-7e56-4b1b-b88d-4ac82bb6c902");
         Authority authority1=authorityRepository.save(authority);
-        System.out.println(authority1.getId());
+        System.out.println(authority1.getUserId());
     }
+
+    @Test
+    public void findTest(){
+        List<Integer> list=authorityRepository.findAllByUsername("张三");
+        list.forEach(System.out::println);
+    }
+
+    @Test
+    public void deleteTest(){
+        authorityRepository.deleteAll();
+    }
+
 }

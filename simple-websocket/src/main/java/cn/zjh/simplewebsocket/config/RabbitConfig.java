@@ -60,8 +60,8 @@ public class RabbitConfig {
     @Bean
     public ConnectionFactory connectionFactory(){
         CachingConnectionFactory connectionFactory=new CachingConnectionFactory();
-        connectionFactory.setAddresses("192.168.136.250:5672");
-//        connectionFactory.setAddresses("192.168.204.250:5672");
+//        connectionFactory.setAddresses("192.168.136.250:5672");
+        connectionFactory.setAddresses("192.168.204.250:5672");
         connectionFactory.setVirtualHost("/vhost_zjh");
         connectionFactory.setUsername("user_zjh");
         connectionFactory.setPassword("user_zjh");
