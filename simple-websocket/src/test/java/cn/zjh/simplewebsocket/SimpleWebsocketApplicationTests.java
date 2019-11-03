@@ -1,6 +1,7 @@
 package cn.zjh.simplewebsocket;
 
 import cn.zjh.simplewebsocket.dao.AuthorityRepository;
+import cn.zjh.simplewebsocket.dao.specifications.AuthoritySpecs;
 import cn.zjh.simplewebsocket.model.Authority;
 import cn.zjh.simplewebsocket.model.Packaged;
 import cn.zjh.simplewebsocket.service.rabbitmq.simple.HelloRecv;
@@ -125,20 +126,38 @@ public class SimpleWebsocketApplicationTests {
         Authority authority=new Authority();
         authority.setUsername("张三");
         authority.setAuthority("A");
-        authority.setUserId("321ed5ec-7e56-4b1b-b88d-4ac82bb6c902");
+        authority.setUserId(1000);
         Authority authority1=authorityRepository.save(authority);
         System.out.println(authority1.getUserId());
     }
 
     @Test
     public void findTest(){
-        List<Integer> list=authorityRepository.findAllByUsername("张三");
-        list.forEach(System.out::println);
+        Authority authority=new Authority();
+        authority.setUsername("张三");
+        authority.setAuthority("A");
+//        List<Integer> list=authorityRepository.findAllByUsername("张三");
+//        list.forEach(System.out::println);
+//        System.out.println(authorityRepository.findByUserIdAndAuthority(1000, "A"));
+        System.out.println(authorityRepository.findByRoot(authority));
     }
 
     @Test
     public void deleteTest(){
-        authorityRepository.deleteAll();
+        Authority authority=new Authority();
+        authority.setUsername("张三");
+        authority.setAuthority("A");
+//        authority.setUserId(1000);
+        authorityRepository.delete(authority);
+    }
+
+    @Test
+    public void predicateTest(){
+        Authority authority=new Authority();
+        authority.setUsername("张三");
+        authority.setAuthority("A");
+        List<Authority> list=authorityRepository.findAll(AuthoritySpecs.setAuthority(authority));
+        list.forEach(e-> System.out.println(e.getUsername()));
     }
 
 }

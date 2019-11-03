@@ -12,14 +12,14 @@ import java.util.List;
 
 @Repository
 public interface AuthorityRepository extends JpaSpecificationExecutor<Authority>,JpaRepository<Authority,Integer> {
-	@Query(value = "select id from authority where username=:username and authority=:authority",nativeQuery = true)
-	Integer findByUserAndAuthority(@Param("username") String username, @Param("authority") String authority);
+//	@Query(value = "select id from authority where username=:username and authority=:authority",nativeQuery = true)
+	Authority findByUserIdAndAuthority(@Param("userId") Integer userId, @Param("authority") String authority);
 
-	@Query("select id from Authority where username=:username")
+	@Query(value = "select id from authority where username=:username",nativeQuery = true)
 	List<Integer> findAllByUsername(@Param("username") String username);
 
 	//查询参数是对象
-	@Query("select id from Authority where username=:#{authority.username}")
-	Integer findByRoot(@Param("authority") Authority authority);
+	@Query(value = "select id from authority where username=:#{#authority.username}",nativeQuery = true)
+	Integer findByRoot( @Param("authority") Authority authority);
 
 }

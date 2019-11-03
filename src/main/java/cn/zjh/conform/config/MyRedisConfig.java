@@ -41,6 +41,10 @@ public class MyRedisConfig  extends CachingConfigurerSupport {
 		return new GenericJackson2JsonRedisSerializer();
 	}
 
+
+
+
+	//region redis和cacheManger结合
 	@Bean
 	public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
 		//缓存配置对象
@@ -55,7 +59,6 @@ public class MyRedisConfig  extends CachingConfigurerSupport {
 				.builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
 				.cacheDefaults(redisCacheConfiguration).build();
 	}
-
 
 	//自定义 cache key 的生成方式
 	@Override
@@ -78,4 +81,5 @@ public class MyRedisConfig  extends CachingConfigurerSupport {
 			}
 		};
 	}
+	//endregion xian
 }

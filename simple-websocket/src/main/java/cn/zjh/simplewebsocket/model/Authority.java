@@ -16,7 +16,7 @@ public class Authority {
 	private Integer version;
 
 	@Column(name = "userId",length = 255)
-	private String userId;
+	private Integer userId;
 
 	@Column(length = 255)
 	private String username;
@@ -55,11 +55,11 @@ public class Authority {
 		this.version = version;
 	}
 
-	public String getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 }

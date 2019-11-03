@@ -2,7 +2,11 @@ server:
   port: 8081
 spring:
   profiles:
-    active: company
+    active: home
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
 #下面这一行务必不能少，区分不同配置，而且必须是三个字符"-"
 ---
