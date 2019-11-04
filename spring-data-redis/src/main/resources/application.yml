@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: home
+    active: company
 
 ---
 spring:
@@ -11,3 +11,5 @@ spring:
 ---
 spring:
   profiles: company
+  redis:
+    host: 192.168.204.250
