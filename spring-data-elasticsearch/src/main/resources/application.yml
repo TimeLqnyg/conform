@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: company
+
+---
+spring:
+  profiles: company
+  elasticsearch:
+    rest:
+      uris: http://192.168.204.250:9200/
+
+
+---
+spring:
+  profiles: home
+  elasticsearch:
+    rest:
+      uris: http://192.168.136.250:9200/

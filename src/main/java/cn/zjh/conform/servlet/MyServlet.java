@@ -1,5 +1,8 @@
 package cn.zjh.conform.servlet;
 
+import cn.zjh.conform.service.autoBean.IceCream;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -20,7 +23,8 @@ public class MyServlet extends HttpServlet {
 
 	private String value;
 
-	public  void init(ServletConfig servletConfig) throws ServletException {
+	@Override
+	public void init(ServletConfig servletConfig) throws ServletException {
 		super.init(servletConfig);
 		value=servletConfig.getInitParameter("myName");
 	}

@@ -1,0 +1,25 @@
+servlet容器：
+    Servlet容器的基本思想是在服务器端使用Java来动态生成网页。
+    因此，Servlet容器是Web服务器和servlet进行交互的必不可少的组件。
+
+servlet：
+     Servlet是在javax.serlvet包中定义的一个接口。它声明了servlet生命周期中必不可少的三个方法
+     -init()、service()和destroy()。每个servlet（无论是在SDK中定义的，或是自定义的）
+     都必须实现这三个方法，而且由服务器在特定的时刻调用。
+
+        1. init()方法在servlet生命周期的初始化阶段被调用。
+           它传递一个实现了javax.servlet.ServletConfig接口的对象，
+           使得servlet能够从web application中获取初始化参数。
+
+        2. servlet初始化收，每接收一个请求，就会调用service()方法。
+           每个请求的处理都在独立的线程中进行。Web服务器对每个请求都会调用一次service()方法。
+           service()方法判断请求的类型，并把它转发给相应的方法进行处理。
+
+        3. 当需要销毁servlet对象时，就要调用destroy()方法。该方法释放被占用的资源。
+
+        和所有的Java程序一样，servlet运行在JVM中。引入servlet容器是为了处理复杂的HTTP请求。
+        Servlet容器负责servlet的创建、执行和销毁。
+
+springmcv和servlet：
+    springmcv是对servlet的封装，核心如dispatcherServlet还是基础servlet
+    就像mybatis和JDBC一样
