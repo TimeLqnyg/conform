@@ -19,4 +19,5 @@ import lombok.NoArgsConstructor;
 public class BookDTO {
     private String id;
     private String bookName;
+    private String description;
 }
