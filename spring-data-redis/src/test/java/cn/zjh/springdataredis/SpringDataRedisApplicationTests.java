@@ -42,4 +42,5 @@ class SpringDataRedisApplicationTests {
 		System.out.println(operations.score("students", "zhangsan"));
 	}
 
+
 }
