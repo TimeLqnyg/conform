@@ -1,0 +1,10 @@
+ 5.5 之前的版本select * from a where id in (select id from b);
+ 这条 sql 语句它的执行计划其实并不是先查询出 b 表的所有 id，
+ 然后再与 a 表的 id 进行比较。mysql 会把 in 子查询转换成 exists 相关子查询，
+ 所以它实际等同于这条 sql 语句：
+ select * from a where exists(select * from b where b.id=a.id)，
+ 而 exists 相关子查询的执行原理是：循环取出 a 表的每一条记录与 b 表进行比较，
+ 比较的条件是 a.id=b.id。看 a 表的每条记录的 id 是否在 b 表存在，
+ 如果存在就行返回 a 表的这条记录。
+
+ select * from a where exists(select * from b where b.id=a.id)
