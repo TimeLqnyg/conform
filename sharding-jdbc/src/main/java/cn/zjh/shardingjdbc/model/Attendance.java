@@ -12,6 +12,6 @@ public class Attendance {
 	private Integer realAttendance;
 	private Integer shouldAttendance;
 	private Boolean flag;
-	@JSONField(format = "dd/MM/yyyy")
+	@JSONField(format = "d/M/yyyy HH:mm:ss")
 	private Date createDate;
 }

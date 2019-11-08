@@ -34,9 +34,10 @@ public class ImportFromJsonToDB {
 		//region reader方式
 		try (FileReader reader = new FileReader(file);
 			 BufferedReader bufferedReader = new BufferedReader(reader);) {
+			int size=0;
 			char[] buffer = new char[1024];
-			while ((bufferedReader.read(buffer) != -1)) {
-				fileContent.append(new String(buffer));
+			while ((size=bufferedReader.read(buffer) )!= -1) {
+				fileContent.append(new String(buffer,0,size));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

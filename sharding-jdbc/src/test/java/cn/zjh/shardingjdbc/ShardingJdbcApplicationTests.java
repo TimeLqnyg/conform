@@ -1,6 +1,7 @@
 package cn.zjh.shardingjdbc;
 
 import cn.zjh.shardingjdbc.model.Attendance;
+import cn.zjh.shardingjdbc.model.User;
 import cn.zjh.shardingjdbc.utils.ImportFromJsonToDB;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -19,14 +20,17 @@ class ShardingJdbcApplicationTests {
 
     @Test
     void contextLoads() {
-        String filePath = "C:\\Users\\zjh\\Desktop\\attendance.json";
+//        String filePath = "C:\\Users\\zjh\\Desktop\\attendance.json";
+        String filePath="C:\\Users\\user001\\Desktop\\t_user0.json";
         File file = new File(filePath);
         String json = ImportFromJsonToDB.getJsonFile(file);
         JSONObject jsonObject = JSON.parseObject(json);
         JSONArray records = jsonObject.getJSONArray("RECORDS");
-        System.out.println(records.get(0).toString());
-//        List<Attendance> list = ImportFromJsonToDB.jsonConvertJsonObject(json, Attendance.class);
-//        list.forEach(l->l.toString());
+//        System.out.println(records.get(0).toString());
+        List<User> list = ImportFromJsonToDB.jsonConvertJsonObject(json, User.class);
+        list.forEach(l->{
+            System.out.println(l.toString());
+        });
     }
 
     SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
@@ -34,12 +38,14 @@ class ShardingJdbcApplicationTests {
 
     @Test
     public void testFormat(){
-        String filePath = "C:\\Users\\zjh\\Desktop\\attendance.json";
+//        String filePath = "C:\\Users\\zjh\\Desktop\\attendance.json";
+        String filePath="C:\\Users\\user001\\Desktop\\t_user0.json";
         File file = new File(filePath);
         String json = ImportFromJsonToDB.getJsonFile(file);
-        JSONObject jsonObject = JSON.parseObject(json);
-        List<Attendance> list = ImportFromJsonToDB.jsonConvertJsonObject(json, Attendance.class);
-        list.forEach(l->l.toString());
+        System.out.println(json);
+//        JSONObject jsonObject = JSON.parseObject(json);
+//        List<User> list = ImportFromJsonToDB.jsonConvertJsonObject(json, User.class);
+//        list.forEach(l->l.toString());
     }
 
     @Test
@@ -50,6 +56,16 @@ class ShardingJdbcApplicationTests {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void testJSONField(){
+//        User user=new User();
+//        user.setName("test");
+
+        Attendance attendance=new Attendance();
+        attendance.setCreateDate(new Date());
+        System.out.println(ImportFromJsonToDB.javaBeanConvertJson(attendance));
     }
 
 }

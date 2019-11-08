@@ -4,7 +4,7 @@ spring:
   application:
     name: sharding-springboot-mybatis
   profiles:
-    active: home
+    active: company
 
 sharding:
   jdbc:

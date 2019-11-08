@@ -1,5 +1,9 @@
 package cn.zjh.shardingjdbc.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.DateCodec;
+import com.alibaba.fastjson.serializer.LongCodec;
+import com.alibaba.fastjson.serializer.StringCodec;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,12 +22,16 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 public class User {
+    @JSONField(deserializeUsing = LongCodec.class)
     private Long id;
+//    @JSONField(name = "user_name")
     private String name;
     private String phone;
     private String email;
     private String password;
+    @JSONField(name = "city_id")
     private Integer cityId;
+    @JSONField(name = "create_time")
     private Date createTime;
     private Integer sex;
 }
