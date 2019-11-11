@@ -26,7 +26,12 @@
 
 java 并发：
     https://www.cnblogs.com/vijozsoft/p/5585620.html
+
+
+mysql并发问题：
     事务并发引起的问题：
         不可重复读：在第三级别的隔离级别中（可重复度Repeatable read） 一个事务开启后，
                     在这个事务中，对其他事务提交前后的数据读出来是一样的，
                     结束当前事务才能读到修的东西
+
+    对于更新操作的幂等性？ 更新version字段 同时将第一次查出来的version存到缓存中
