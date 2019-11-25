@@ -49,6 +49,7 @@ public class TestService {
 		System.out.println("删除缓存"+id);
 	}
 
+	//value 即 cacheNames
 	@Caching(
 			cacheable = {
 					@Cacheable(value = "book",key = "#bookName")

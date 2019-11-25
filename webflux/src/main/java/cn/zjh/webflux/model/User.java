@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @description: cn.zjh.webflux.model
  * @date:2019/11/21
  */
-@Document(collation = "user")
+@Document(collection = "user")
 @Data
 public class User {
 
