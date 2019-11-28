@@ -2,11 +2,22 @@ server:
   port: 8081
 spring:
   profiles:
-    active: home
+    active: company
   jpa:
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+#自定义参数
+rabbit: #MQ队列名称
+  direct:
+    exchange: async_exchange
+    routing.key:
+      key1: async_key1
+      key2: async_key2
+    queue:
+      queue01: async_queue01
+      queue02: async_queue02
 
 #下面这一行务必不能少，区分不同配置，而且必须是三个字符"-"
 ---
@@ -19,8 +30,8 @@ spring:
     port: 5672
     username: user_zjh
     password: user_zjh
-    virtual-host: /user_zjh
-    publisher-confirms: true
+    virtual-host: /vhost_zjh
+    publisher-confirms: false
     publisher-returns: true
     template:
       mandatory: true
@@ -53,9 +64,16 @@ spring:
     port: 5672
     username: user_zjh
     password: user_zjh
-    virtual-host: /user_zjh
-    publisher-confirms: true
+    virtual-host: /vhost_zjh
+    publisher-confirms: false
     publisher-returns: true
+    listener:
+      simple:
+        concurrency: 10 #消费者数量
+        max-concurrency: 10 #最大消费者数量
+        prefetch: 1 #限流（消费者每次从队列获取的消息数量）
+        auto-startup: true  #启动时自动启动容器
+        acknowledge-mode: manual #开启ACK手动确认模式
     template:
       mandatory: true
 
